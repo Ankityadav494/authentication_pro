@@ -45,7 +45,7 @@ app.post('/login', async (req,res)=>{
     let token = jwt.sign({email:email,userid:user._id},"lolopollll");
     res.cookie('token',token);
    
-    res.send('logged in successfully');
+    res.redirect('/profile');
  
 });
 app.get('/logout',(req,res)=>{
@@ -53,9 +53,24 @@ app.get('/logout',(req,res)=>{
 
     res.send('logged out successfully');
 });
-app.get('/profile',authenticateToken, (req,res)=>{
-   res.send('welcome to profile');
+
+app.get('/profile',authenticateToken, async (req,res)=>{
+    const  user = await usermodel.findOne({email:req.user.email})
+    await user.populate('posts');
+    res.render('profile',{user});
 });
+
+
+app.post('/post',authenticateToken, async (req,res)=>{
+let {content}=req.body;
+let user = await usermodel.findOne({email:req.user.email});
+let post = await postmodel.create({user:user._id,content});
+user.posts.push(post);
+await user.save();  
+res.redirect('/profile');   
+});
+
+
 
 function authenticateToken(req,res,next){
    if(!req.cookies.token) return res.status(401).send('Access denied');

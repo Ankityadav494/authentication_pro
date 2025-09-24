@@ -6,7 +6,7 @@ const postSchema=mongoose.Schema({
         ref:'User'
     },
     date:{type:Date,default:Date.now},
-
+content:String,
     like:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
