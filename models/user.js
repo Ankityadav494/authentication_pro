@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/mini1DB');
+mongoose.connect('mongodb://127.0.0.1:27017/miniDB');
 const userSchema =mongoose.Schema({
    name:String,
    username:String,
@@ -9,7 +9,10 @@ const userSchema =mongoose.Schema({
    posts:[{
     type:mongoose.Schema.Types.ObjectId,
     ref:'post'
-   }]
+   }],
+   profilepic:[{
+      type:String,
+      default:"default.jpg"
+   }] 
 })
-module.exports= mongoose.model('User',userSchema  
-);
+module.exports= mongoose.model('User',userSchema  );

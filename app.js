@@ -5,12 +5,16 @@ const postmodel = require('./models/post');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const app = express();
+const upload = require('./config/multerconfig');
+
 
 app.set('view engine', 'ejs');  
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));  
 app.use(cookieParser());
 app.use(express.json());
+
+
 
 app.get('/', (req, res) => {
    res.render('index');
@@ -70,6 +74,21 @@ await user.save();
 res.redirect('/profile');   
 });
 
+// app.get('/like/:_id',authenticateToken,async (req,res)=>{
+//     let user = await usermodel.findOne({userid:user._id});
+//       console.log(user);
+// }
+// );
+
+app.get('/profile/upload', (req,res)=>{
+    res.render('test');
+});
+app.post('/upload',authenticateToken,upload.single("myfile") ,async (req,res)=>{
+    let user = await usermodel.findOne({email:req.user.email});
+    user.profilepic = req.file.filename;
+    await user.save();
+    res.redirect('/profile');
+});
 
 
 function authenticateToken(req,res,next){
@@ -81,7 +100,7 @@ function authenticateToken(req,res,next){
    }catch(err){
       res.status(400).send('Invalid token');
    }
-}
+};;
 
 
  app.listen(3000);
