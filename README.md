@@ -33,18 +33,7 @@ File Uploads: Multer
 
 Other Tools: bcrypt, dotenv, mongoose
 
-📁 Project Structure
-Authentication_Pro/
-│
-├── models/           # Mongoose schemas
-├── routes/           # Authentication & user routes
-├── views/            # EJS templates
-├── public/           # Static files (CSS, images)
-├── uploads/          # Uploaded profile images
-├── middleware/       # Auth middleware
-├── app.js            # Main application file
-├── package.json
-└── README.md
+
 
 ⚙️ Installation & Setup
 Prerequisites
@@ -74,8 +63,6 @@ npm start
 
 Open your browser and go to:
 
-http://localhost:3000
-
 🧪 How It Works
 
 Users register and log in securely using JWT tokens.
@@ -88,12 +75,8 @@ All user data is securely stored in MongoDB.
 
 📌 Future Improvements
 
-🔐 Password reset functionality
-
 📧 Email verification
 
 🗂️ Role-based access control
 
-☁️ Cloud image storage (Cloudinary)
 
-🌐 Deployment on Render / Railway
